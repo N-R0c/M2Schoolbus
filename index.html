@@ -1,0 +1,72 @@
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: lightblue;
+    }
+    h1 {
+      text-align: center;
+      color: white;
+    }
+    input {
+      display: block;
+      margin: 10px auto;
+      width: 200px;
+    }
+    button {
+      display: block;
+      margin: 10px auto;
+      width: 100px;
+      height: 50px;
+      background-color: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    p {
+      text-align: center;
+      font-size: 20px;
+      color: Green;
+    }
+  </style>
+</head>
+<body>
+  <h1>Meter Converter</h1>
+  <input id="meterInput" type="number" placeholder="Enter meters" min="0">
+  <button id="convertButton" onclick="convert()">Convert</button>
+  <p id="result"></p>
+  <script>
+    //conversion factors
+    const meterToFootballField = 0.010936132983377; 
+    const meterToSchoolBus = 0.0943396226; 
+
+    
+    function convertMeters(meters) {
+      return {
+        footballFields: meters * meterToFootballField,
+        schoolBuses: meters * meterToSchoolBus
+      };
+    }
+
+    //gets input, calls convertMeters, displays result
+    function convert() {
+      let meterInput = document.getElementById("meterInput");
+      let meters = Number(meterInput.value);
+      //valid?
+      if (isNaN(meters) || meters < 0) {
+        //lol no
+        alert("Please enter a valid number of meters");
+        meterInput.value = "";
+      } else {
+        let result = convertMeters(meters);
+        //trunk to 2
+        let footballFields = result.footballFields.toFixed(2);
+        let schoolBuses = result.schoolBuses.toFixed(2);
+        let resultParagraph = document.getElementById("result");
+        resultParagraph.innerHTML = meters + " Meters = " + footballFields + " Football Fields [U.S.] or " + schoolBuses + " School Buses";
+      }
+    }
+  </script>
+</body>
+</html>
